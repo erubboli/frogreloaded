@@ -1,5 +1,6 @@
 package io.aa.games.frog;
 
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -9,32 +10,32 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class FrogSprite {
     private SpriteBatch batch;
     private Texture texture;
-    private Screen screen;
     public int x = 0;
     public int y = 0;
+    private Camera cam;
     private int steps = 24;
 
-    public FrogSprite(int x, int y, Screen screen){
+    public FrogSprite(int x, int y, Camera cam){
       texture = new Texture("frog.png");
       batch = new SpriteBatch();
       this.x = x; this.y = y;
-      this.screen = screen;
+      this.cam = cam;
     }
 
 
     public void moveRight(){
-        if( x + steps < screen.getWidth()) {
-            x += steps;
-        }
-    }
-    public void moveLeft(){
         if( x - steps >= 0 ){
             x -= steps;
         }
     }
+    public void moveLeft(){
+        if( x + steps < cam.viewportWidth) {
+            x += steps;
+        }
+    }
 
     public void moveDown(){
-        if( y + steps < screen.getHeight()){
+        if( y + steps < cam.viewportHeight){
             y += steps;
         }
     }
@@ -45,6 +46,7 @@ public class FrogSprite {
     }
 
     public void draw(){
+        batch.setProjectionMatrix(cam.combined);
         batch.begin();
         batch.draw(texture, x,  y);
         batch.end();
