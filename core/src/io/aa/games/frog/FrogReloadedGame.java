@@ -10,18 +10,18 @@ import com.badlogic.gdx.math.Vector3;
 public class FrogReloadedGame extends ApplicationAdapter {
     FrogSprite frog;
     OrthographicCamera camera;
-	private static int SCREEN_WIDTH=800;
+    private static int SCREEN_WIDTH=800;
     private static int SCREEN_HEIGHT=480;
 
-	@Override
-	public void create () {
+    @Override
+    public void create () {
         camera = new OrthographicCamera();
         frog = new FrogSprite(10,240, camera);
         camera.setToOrtho(false, SCREEN_WIDTH, SCREEN_HEIGHT);
-	}
+    }
 
-	@Override
-	public void render () {
+    @Override
+    public void render () {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         detectInput();
